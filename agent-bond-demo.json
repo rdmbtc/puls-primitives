@@ -1,0 +1,6 @@
+{
+  "bond": "0xc3bbfccfd885d14898dff697435a090ba5919497",
+  "agent": "0xbF53FAF23e1d44924585830d09BeC1cEAF616f44",
+  "sigWrong": "0x69fa5ddb523a6a056a884438dbcea6e6133c3d0e391ea31a034e9a2e9f773060",
+  "sigRight": "0x3bbb7cdd0f86b89e05f6431ca4308deb463cb672bb374d8f989bead6608c90bd"
+}
