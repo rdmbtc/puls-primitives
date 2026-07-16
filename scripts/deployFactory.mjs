@@ -39,7 +39,7 @@ async function deploy() {
 
   // Save to config file
   const config = { factoryAddress: receipt.contractAddress };
-  fs.writeFileSync('./deployed-factory.json', JSON.stringify(config, null, 2));
+  fs.writeFileSync('./deployments/deployed-factory.json', JSON.stringify(config, null, 2));
 }
 
 deploy().catch(console.error);

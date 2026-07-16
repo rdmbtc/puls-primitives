@@ -11,7 +11,7 @@ import { arcTestnet } from 'viem/chains';
 // Amounts are tiny (testnet). Proves the mechanic end-to-end, verifiable on arcscan.
 
 const USDC = '0x3600000000000000000000000000000000000000';
-const BOND = JSON.parse(fs.readFileSync('./deployed-agent-bond.json', 'utf-8')).agentBondAddress;
+const BOND = JSON.parse(fs.readFileSync('./deployments/deployed-agent-bond.json', 'utf-8')).agentBondAddress;
 const rpc = http(process.env.ARC_RPC_URL || undefined);
 
 const ERC20_ABI = [

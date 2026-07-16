@@ -46,7 +46,7 @@ async function deploy() {
   console.log(`\nAdd to backend .env:\n  AGENT_BOND_ADDRESS=${receipt.contractAddress}`);
 
   fs.writeFileSync(
-    './deployed-agent-bond.json',
+    './deployments/deployed-agent-bond.json',
     JSON.stringify({ agentBondAddress: receipt.contractAddress, usdc: USDC, treasury }, null, 2)
   );
 }

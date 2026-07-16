@@ -43,7 +43,7 @@ async function deploy() {
   console.log(`\nAdd to backend .env:\n  SIGNAL_REGISTRY_ADDRESS=${receipt.contractAddress}`);
 
   fs.writeFileSync(
-    './deployed-signal-registry.json',
+    './deployments/deployed-signal-registry.json',
     JSON.stringify({ signalRegistryAddress: receipt.contractAddress }, null, 2)
   );
 }
