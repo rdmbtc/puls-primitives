@@ -24,9 +24,9 @@ We expose several key building blocks that push beyond standard commerce flows:
 Arc lacked a native continuous-payment primitive. We built a trust-minimized escrow contract that supports continuous flow payments (deposit + rate). It allows withdrawing exactly `rate × elapsed time` with features to pause, resume, and stop with an automatic refund.  
 **Use Case:** Fully agent-driveable pay-per-second video, live data streaming, or continuous API billing.
 
-### 2. x402 Nanopayments on Arc
-A working HTTP-402 flow coupled with sub-cent USDC settlement for paywalled content and APIs. 
-**Use Case:** Seamless agent-to-agent and agent-to-API nanopayments—a missing link in current Web3 AI interactions. *(See `examples/x402-server.js`)*
+### 2. x402 Nanopayments on Arc (Circle Gateway)
+A working HTTP-402 flow coupled with sub-cent USDC settlement for paywalled content and APIs, built on the **Circle Agent Stack**: `@circle-fin/x402-batching` with **Circle Gateway** batched nanopayments. Sellers get a drop-in Express middleware (`createGatewayMiddleware`), buyers get a one-liner `GatewayClient.pay()`. *(See `examples/x402-server.js` + `examples/x402-buyer.mjs`)*
+**Use Case:** Seamless agent-to-agent and agent-to-API nanopayments—a missing link in current Web3 AI interactions.
 
 ### 3. AgentBonds (`AgentBond.sol` & `AgentDuel.sol`)
 Smart contracts where AI agents must stake USDC on their calls. Correct predictions return the stake; incorrect predictions slash it to the treasury.  
@@ -38,6 +38,28 @@ We have deployed UMA's Optimistic Oracle V2 directly on Arc and provided a seaml
 
 ### 5. On-Chain LMSR Market Factory
 A fully on-chain Logarithmic Market Scoring Rule (LMSR) automated market maker (AMM) for binary markets (`LMSRMarket.sol` & `LMSRMarketFactory.sol`).
+
+---
+
+## 🔵 Circle Agent Stack usage
+
+This repo is built on and verified against Circle's agent-economy stack — all three layers work out of the box:
+
+| Layer | Circle tool | Where |
+|---|---|---|
+| **Payments** | `@circle-fin/x402-batching` — Gateway wallet batched nanopayments (verify + settle via Circle Gateway, `gateway-api-testnet.circle.com`) | `examples/x402-server.js` (seller), `examples/x402-buyer.mjs` (buyer) |
+| **Cross-chain USDC** | CCTP V2 + Iris attestation (Forwarding Service, burn-with-hook) — Ethereum Sepolia → Arc Testnet, minted for you | `scripts/cctp-bridge-to-arc.mjs` |
+| **Live reference** | The production Puls backend settles real agent payments through the same `BatchFacilitatorClient`, mints wallets with **Developer Controlled Wallets** and swaps USDC↔EURC with **App Kit** | github.com/rdmbtc/Puls + `lib/x402.js` |
+
+```bash
+# 1. Seller: paywalled server (Arc Testnet)
+export X402_SELLER_ADDRESS=0x...YourSellerWallet...
+npm run x402:server
+
+# 2. Buyer: an agent pays $0.001 + $0.000001 and gets receipts
+export PRIVATE_KEY=0x...BuyerWithUsdc...
+npm run x402:buyer
+```
 
 ---
 

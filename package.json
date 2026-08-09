@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "x402:server": "node examples/x402-server.js",
+    "x402:buyer": "node examples/x402-buyer.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@circle-fin/x402-batching": "^2.1.0",
+    "@x402/core": "^2.21.0",
+    "@x402/evm": "^2.21.0",
     "dotenv": "^17.4.2",
-    "viem": "^2.49.3"
+    "express": "^5.1.0",
+    "viem": "^2.50.4"
   }
 }
